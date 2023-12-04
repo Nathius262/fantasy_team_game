@@ -1,5 +1,6 @@
 import os
 from decouple import config
+import datetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,13 +31,19 @@ INSTALLED_APPS = [
     
     #installed apps
     
-    #'user',
+    'authentication',
 
     #django alllauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-
+    
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
+    'rest_framework_simplejwt',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 TEMPLATES = [
@@ -98,7 +106,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-#AUTH_USER_MODEL = 'user.CustomUser'
+AUTH_USER_MODEL = 'authentication.CustomUser'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -126,6 +134,67 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_SESSION_REMEMBER = None
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    ),
+    'DEFAULT_PREMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
+
+REST_AUTH = {
+
+    'USE_JWT': True,
+    'JWT_AUTH_HTTPONLY':True,
+    'JWT_AUTH_COOKIE': 'access',
+    #'JWT_AUTH_REFRESH_COOKIE': "refresh",
+}
+
+
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ["BEARER"],
+    "ACCESS_TOKEN_LIFETIME": datetime.timedelta(minutes=40),
+    "REFRESH_TOKEN_LIFETIME": datetime.timedelta(hours=72),
+}
+
+
+REST_AUTH_REGISTER_SERIALIZERS ={
+     'REGISTER_SERIALIZER': 'user.serializers.RegisterSerializer'
+}
+
+###############
+###############
+#####
+##### DJANGO CORES HEADER CONFIGURATION
+#####
+###############
+###############
+CORS_URLS_REGEX = r"^/api/.*$"
+
+CORS_ALLOWED_ORIGINS = ["http://localhost:8000", ]
+
+if DEBUG:
+    CORS_ALLOWED_ORIGINS += [
+    "http://localhost:8000",
+    "http://localhost:8000",
+    ]
+
+#APPEND_SLASH=False
+
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+
+CORS_ALLOW_HEADERS = [
+    "Content-Type",
+    "Authorization",
+]
 
 MEDIA_URL = '/media/'  # or any prefix you choose
 
@@ -172,7 +241,7 @@ else:
     DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
 
-    BASE_URL = "pipaytech.com"
+    BASE_URL = ""
 
     # settings.py
 
@@ -198,16 +267,16 @@ else:
 #Jazzmin configuration 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
-    "site_title": "Library Admin",
+    "site_title": "Fantasy Team Game Admin",
 
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "Library",
+    "site_header": "Fantasy Team Game",
 
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_brand": "Library",
+    "site_brand": "Fantasy Team Game",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": "books/img/logo.png",
+    "site_logo": "",
 
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
     "login_logo": None,
@@ -222,14 +291,14 @@ JAZZMIN_SETTINGS = {
     "site_icon": None,
 
     # Welcome text on the login screen
-    "welcome_sign": "Welcome to the library",
+    "welcome_sign": "Welcome to Fantasy Team Game for Team Sports",
 
     # Copyright on the footer
-    "copyright": "Acme Library Ltd",
+    "copyright": "Fantasy Team Game for Team Sports",
 
     # List of model admins to search from the search bar, search bar omitted if excluded
     # If you want to use a single search field you dont need to use a list, you can use a simple string 
-    "search_model": ["auth.User", "auth.Group"],
+    "search_model": ["authentication.CustomUser", ],
 
     # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
     "user_avatar": None,
@@ -257,6 +326,10 @@ JAZZMIN_SETTINGS = {
         "auth": "fas fa-users-cog",
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
+        "authentication.CustomUser": "fas fa-user",
+        "sites.Site": "fa-solid fa-sitemap",
+        #"allauth.account.EmailAddress": "fa-solid fa-at",
+        #"allauth.socialaccounts.SocialAccount" : "fa-brands fa-google-plus-g",
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",
@@ -279,7 +352,7 @@ JAZZMIN_SETTINGS = {
     # Whether to show the UI customizer on the sidebar
     "show_ui_builder": False,
 
-    "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
+    "changeform_format_overrides": {"user": "collapsible", "allauth.account": "vertical_tabs"},
     # Add a language dropdown into the admin
-    "language_chooser": True,
+    "language_chooser": False,
 }
