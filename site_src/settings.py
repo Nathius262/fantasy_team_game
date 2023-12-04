@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     
     'authentication',
     'user',
+    'fantasy',
 
     #django alllauth
     'allauth',
@@ -330,6 +331,10 @@ JAZZMIN_SETTINGS = {
         "authentication.CustomUser": "fas fa-user",
         "sites.Site": "fa fa-solid fa-sitemap",
         "user.Profile":"fa fa-solid fa-user-tie",
+        "user.UserTeam":"fa fa-solid fa-users-cog",
+        "fantasy.Player": "fas fa-user",
+        "fantasy.PlayerTeam": "fas fa-users",
+        "fantasy.Team": "fas fa-users-cog",
         #"allauth.account.EmailAddress": "fa-solid fa-at",
         #"allauth.socialaccounts.SocialAccount" : "fa-brands fa-google-plus-g",
     },
