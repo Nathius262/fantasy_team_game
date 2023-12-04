@@ -9,7 +9,7 @@ SECRET_KEY = config("SECRET_KEY")
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['localhost',]
+ALLOWED_HOSTS = ['localhost', 'project140.pythonanywhere.com']
 
 ROOT_URLCONF = f'{config("PROJECT_NAME")}.urls'
 
@@ -27,10 +27,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',    
-    
+    'django.contrib.staticfiles',
+
     #installed apps
-    
+
     'authentication',
     'user',
     'fantasy',
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    
+
     'dj_rest_auth',
     'dj_rest_auth.registration',
     'rest_framework_simplejwt',
@@ -267,8 +267,8 @@ else:
             },
         },
     }
-    
-#Jazzmin configuration 
+
+#Jazzmin configuration
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
     "site_title": "Fantasy Team Game Admin",
@@ -301,7 +301,7 @@ JAZZMIN_SETTINGS = {
     "copyright": "Fantasy Team Game for Team Sports",
 
     # List of model admins to search from the search bar, search bar omitted if excluded
-    # If you want to use a single search field you dont need to use a list, you can use a simple string 
+    # If you want to use a single search field you dont need to use a list, you can use a simple string
     "search_model": ["authentication.CustomUser", ],
 
     # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
