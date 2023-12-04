@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     #installed apps
     
     'authentication',
+    'user',
 
     #django alllauth
     'allauth',
@@ -327,7 +328,8 @@ JAZZMIN_SETTINGS = {
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
         "authentication.CustomUser": "fas fa-user",
-        "sites.Site": "fa-solid fa-sitemap",
+        "sites.Site": "fa fa-solid fa-sitemap",
+        "user.Profile":"fa fa-solid fa-user-tie",
         #"allauth.account.EmailAddress": "fa-solid fa-at",
         #"allauth.socialaccounts.SocialAccount" : "fa-brands fa-google-plus-g",
     },
