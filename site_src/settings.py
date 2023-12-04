@@ -224,7 +224,7 @@ else:
             'NAME': config("DB_NAME"),
             'USER': config("DB_USER"),
             'PASSWORD': config("DB_PASSWORD"),
-            'HOST': 'localhost',
+            'HOST': config("HOST"),
             'PORT': '3306',
         }
     }
