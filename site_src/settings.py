@@ -124,17 +124,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # django allauth configuration
 SITE_ID = 1
 
-LOGIN_REDIRECT_URL = '/'
-ACCOUNT_FORMS = {'signup': 'user.forms.CustomSignupForm'}
+#ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED =True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = "false"
-ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/account/login'
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
-ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_LOGOUT_ON_GET = True
-ACCOUNT_SESSION_REMEMBER = None
+ACCOUNT_UNIQUE_EMAIL = True
+
+#ACCOUNT_FORMS = {'signup': 'backend.user.forms.RegistrationForm'}
+#ACCOUNT_USERNAME_MIN_LENGTH = 10
+
+ACCOUNT_EMAIL_REQUIRED = True
+
+# REST_AUTH_SERIALIZERS ={
+#     "LOGIN_SERIALIZER": 'user.serializers.LoginSerializer'
+# }
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -142,7 +145,14 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PREMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
-    )
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+}
+
+REST_AUTH_REGISTER_SERIALIZERS ={
+    'REGISTER_SERIALIZER': 'authentication.serializers.CustomRegisterSerializer'
 }
 
 REST_AUTH = {
@@ -158,11 +168,6 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ["BEARER"],
     "ACCESS_TOKEN_LIFETIME": datetime.timedelta(minutes=40),
     "REFRESH_TOKEN_LIFETIME": datetime.timedelta(hours=72),
-}
-
-
-REST_AUTH_REGISTER_SERIALIZERS ={
-     'REGISTER_SERIALIZER': 'user.serializers.RegisterSerializer'
 }
 
 ###############

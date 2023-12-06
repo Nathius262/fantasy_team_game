@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError as DjangoValidationError
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from dj_rest_auth.registration.serializers import RegisterSerializer
-
+from .models import CustomUser
 
 try:
     from allauth.account import app_settings as allauth_settings
@@ -13,7 +13,8 @@ except ImportError:
     raise ImportError('allauth needs to be added to INSTALLED_APPS.')
 
 
-class RegisterSerializer(RegisterSerializer):
+class CustomRegisterSerializer(RegisterSerializer):
+    print("essrsnl")
     username = serializers.CharField(
         max_length=get_username_max_length(),
         min_length=allauth_settings.USERNAME_MIN_LENGTH,
@@ -26,11 +27,30 @@ class RegisterSerializer(RegisterSerializer):
     def validate_username(self, username):
         username = get_adapter().clean_username(username)
         return username
+    
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        user = CustomUser.objects.get(username=username)
+        if user.exists():
+            raise serializers.ValidationError(
+                _('A user is already registered with this e-mail address.'),
+            )
+        return username
+    
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        user = CustomUser.objects.get(email=email)
+        if user.exists():
+            raise serializers.ValidationError(
+                _('A user is already registered with this e-mail address.'),
+            )
+        return email
 
     def validate_email(self, email):
         email = get_adapter().clean_email(email)
+        user = CustomUser.objects.get(email=email)
         if allauth_settings.UNIQUE_EMAIL:
-            if email and email_address_exists(email):
+            if email and user:
                 raise serializers.ValidationError(
                     _('A user is already registered with this e-mail address.'),
                 )
@@ -55,6 +75,7 @@ class RegisterSerializer(RegisterSerializer):
         }
 
     def save(self, request):
+        print("saving satatatafaf")
         adapter = get_adapter()
         user = adapter.new_user(request)
         self.cleaned_data = self.get_cleaned_data()
