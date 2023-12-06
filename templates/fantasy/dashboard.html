@@ -1,0 +1,408 @@
+{% extends "base.html" %}
+
+{% load static %}  
+
+{% block content %}
+
+<div class="wrapper">  
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light" id="jazzy-navbar">
+        <ul class="navbar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>            
+        </ul>
+      
+        <form action="/admin/authentication/customuser/" method="GET" class="form-inline ml-3">
+            <div class="input-group input-group-sm">
+                <input class="form-control form-control-navbar" name="q" type="search" placeholder="Search Custom Users..." aria-label="Search Custom Users...">
+                <div class="input-group-append">
+                    <button class="btn btn-navbar" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link btn" data-toggle="dropdown" href="#" title="admin">
+                    <i class="far fa-user" aria-hidden="true"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left" id="jazzy-usermenu">
+                    <span class="dropdown-header">Account</span>
+                    <div class="dropdown-divider"></div>
+                    {% if request.user.is_authenticated %}
+                    <a href="/admin/password_change/" class="dropdown-item">
+                        <i class="fas fa-key mr-2"></i> Change password
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="api/auth/logout/" class="dropdown-item">
+                        <i class="fas fa-users mr-2"></i> Log out
+                    </a>
+                    {% else %}
+                    <a href="/auth/login/" class="dropdown-item">
+                        <i class="fa-solid fa-right-to-bracket mr-2"></i> Log in
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="/auth/signup/" class="dropdown-item">
+                        <i class="fa-solid fa-user-plus  mr-2"></i> Signup
+                    </a>
+                    {% endif %}
+                    
+                    <div class="dropdown-divider"></div>
+                    
+                    <a href="/admin/authentication/customuser/1/change/" class="dropdown-item dropdown-footer">See Profile</a>
+                    
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <aside class="main-sidebar elevation-4 sidebar-dark-primary" id="jazzy-sidebar">
+        <a href="{% url 'index' %}" class="brand-link active" id="jazzy-logo">
+            
+            <span class="brand-text font-weight-light">Fantasy Team Game</span>
+        </a>
+
+        <div class="sidebar">
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    
+                    <i class="fas fa-inverse user-profile fa-user-circle"></i>
+                    
+                </div>
+                <div class="info">
+                    
+                    <a href="#" class="d-block">{{request.user}}</a>
+                    
+                </div>
+            </div>
+
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu" data-collapsible="false">
+
+                    <li class="nav-item">
+                        <a href="{% url 'index' %}" class="nav-link active">
+                            <i class="nav-icon fas fa-th-large"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>   
+                        
+                    <li class="nav-header">Fantasy</li>
+                    
+                    <li class="nav-item">
+                        
+                        <a href="/admin/fantasy/match/" class="nav-link">
+                            <i class="nav-icon fas fa-circle"></i> <p>Matches</p>
+                        </a>
+                    
+                    </li>
+                
+                    <li class="nav-item">
+                        
+                        <a href="/admin/fantasy/playerteam/" class="nav-link">
+                            <i class="nav-icon fas fa-users"></i> <p>Player teams</p>
+                        </a>
+                    
+                    </li>
+                
+                    <li class="nav-item">
+                        
+                        <a href="/admin/fantasy/player/" class="nav-link">
+                            <i class="nav-icon fas fa-user"></i> <p>Players</p>
+                        </a>
+                    
+                    </li>
+                
+                    <li class="nav-item">
+                        
+                        <a href="/admin/fantasy/premiership/" class="nav-link">
+                            <i class="nav-icon fas fa-circle"></i> <p>Premierships</p>
+                        </a>
+                    
+                    </li>
+                
+                    <li class="nav-item">
+                        
+                        <a href="/admin/fantasy/team/" class="nav-link">
+                            <i class="nav-icon fas fa-users-cog"></i> <p>Teams</p>
+                        </a>
+                    
+                    </li>
+
+                
+                    <li class="nav-header">User</li>
+                            
+                                <li class="nav-item">
+                                    
+                                    <a href="/admin/user/profile/" class="nav-link">
+                                        <i class="nav-icon fa fa-solid fa-user-tie"></i> <p>Profiles</p>
+                                    </a>
+                                
+                                </li>
+                            
+                                <li class="nav-item">
+                                    
+                                    <a href="/admin/user/userteam/" class="nav-link">
+                                        <i class="nav-icon fa fa-solid fa-users-cog"></i> <p>User teams</p>
+                                    </a>
+                                
+                                </li>
+
+                                {% if not request.user.is_authenticated %}
+
+                                <li class="nav-item">
+                                    
+                                    <a href="/auth/login/" class="nav-link">
+                                        <i class="nav-icon fa-solid fa-right-to-bracket"></i> <p>Log in</p>
+                                    </a>
+                                
+                                </li>
+                                <li class="nav-item">
+                                    
+                                    <a href="/auth/signup/" class="nav-link">
+                                        <i class="nav-icon fa-solid fa-user-plus"></i> <p>Sign up</p>
+                                    </a>
+                                
+                                </li>
+                                {% endif %}                            
+                    
+                </ul>
+            </nav>
+        </div>
+    </aside>
+
+    <div class="content-wrapper" style="min-height: 1078.08px;">
+    
+        
+        <div class="content border-bottom mb-2">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-md-auto d-flex flex-grow-1 align-items-center">
+                        <h1 class="h4 m-0 pr-3 mr-3 border-right"> Dashboard </h1>
+                        
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/admin/" class="active">Home</a></li>
+                            <li class="breadcrumb-item">Dashboard</li>
+                        </ol>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content">
+            <div class="container-fluid">
+                <section id="content" class="content">   
+                    
+                    <div class="row">
+
+                        <div class="col-lg-9 col-12">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5 class="m-0">Fantasy</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <table class="table table-sm">
+                                                    <tbody>
+                                                    
+                                                        <tr>
+                                                            <td>
+                                                                <a href="/admin/fantasy/match/">Matches</a>
+                                                            </td>
+                                                            <td>
+                                                                <div class="btn-group float-right">
+                                                                    
+                                                                        <a href="/admin/fantasy/match/add/" class="btn btn-xs btn-success addlink">Add</a>
+                                                                    
+                                                                    
+                                                                        
+                                                                            <a href="/admin/fantasy/match/" class="btn btn-xs btn-info changelink">Change</a>
+                                                                        
+                                                                    
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td>
+                                                                <a href="/admin/fantasy/playerteam/">Player teams</a>
+                                                            </td>
+                                                            <td>
+                                                                <div class="btn-group float-right">
+                                                                    
+                                                                        <a href="/admin/fantasy/playerteam/add/" class="btn btn-xs btn-success addlink">Add</a>
+                                                                    
+                                                                    
+                                                                        
+                                                                            <a href="/admin/fantasy/playerteam/" class="btn btn-xs btn-info changelink">Change</a>
+                                                                        
+                                                                    
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td>
+                                                                <a href="/admin/fantasy/player/">Players</a>
+                                                            </td>
+                                                            <td>
+                                                                <div class="btn-group float-right">
+                                                                    
+                                                                        <a href="/admin/fantasy/player/add/" class="btn btn-xs btn-success addlink">Add</a>
+                                                                    
+                                                                    
+                                                                        
+                                                                            <a href="/admin/fantasy/player/" class="btn btn-xs btn-info changelink">Change</a>
+                                                                        
+                                                                    
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td>
+                                                                <a href="/admin/fantasy/premiership/">Premierships</a>
+                                                            </td>
+                                                            <td>
+                                                                <div class="btn-group float-right">
+                                                                    
+                                                                        <a href="/admin/fantasy/premiership/add/" class="btn btn-xs btn-success addlink">Add</a>
+                                                                    
+                                                                    
+                                                                        
+                                                                            <a href="/admin/fantasy/premiership/" class="btn btn-xs btn-info changelink">Change</a>
+                                                                        
+                                                                    
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td>
+                                                                <a href="/admin/fantasy/team/">Teams</a>
+                                                            </td>
+                                                            <td>
+                                                                <div class="btn-group float-right">
+                                                                    
+                                                                        <a href="/admin/fantasy/team/add/" class="btn btn-xs btn-success addlink">Add</a>
+                                                                    
+                                                                    
+                                                                        
+                                                                            <a href="/admin/fantasy/team/" class="btn btn-xs btn-info changelink">Change</a>
+                                                                        
+                                                                    
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                        
+
+                                    
+                                        
+
+                                        
+
+                                    
+                                        
+
+                                        
+
+                                    
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5 class="m-0">User</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <table class="table table-sm">
+                                                    <tbody>
+                                                    
+                                                        <tr>
+                                                            <td>
+                                                                <a href="/admin/user/profile/">Profiles</a>
+                                                            </td>
+                                                            <td>
+                                                                <div class="btn-group float-right">
+                                                                    
+                                                                        <a href="/admin/user/profile/add/" class="btn btn-xs btn-success addlink">Add</a>
+                                                                    
+                                                                    
+                                                                        
+                                                                            <a href="/admin/user/profile/" class="btn btn-xs btn-info changelink">Change</a>
+                                                                        
+                                                                    
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td>
+                                                                <a href="/admin/user/userteam/">User teams</a>
+                                                            </td>
+                                                            <td>
+                                                                <div class="btn-group float-right">
+                                                                    
+                                                                        <a href="/admin/user/userteam/add/" class="btn btn-xs btn-success addlink">Add</a>
+                                                                    
+                                                                    
+                                                                        
+                                                                            <a href="/admin/user/userteam/" class="btn btn-xs btn-info changelink">Change</a>
+                                                                        
+                                                                    
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        
+
+                                    
+                                    </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-3 col-12">
+                            <div id="content-related">
+                                
+                            </div>
+                        </div>
+
+
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="main-footer ">
+        <div class="float-right d-none d-sm-inline">
+            <b>codemenath1</b>
+        </div>
+        
+        <strong>Copyright © 2023 Fantasy Team Game for Team Sports.</strong> All rights reserved.
+        
+    </footer>
+
+    <div id="sidebar-overlay"></div>
+</div>
+
+{% endblock content %}
