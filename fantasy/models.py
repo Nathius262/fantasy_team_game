@@ -18,18 +18,18 @@ class Player(models.Model):
     cid = models.CharField(max_length=50, unique=True, null=True, blank=False)
     code = models.CharField(max_length=50, unique=True, null=True, blank=False)
     position = models.CharField(max_length=225, null=True, blank=False)
-    point = models.DecimalField(max_digits=12, decimal_places=2)
+    point = models.DecimalField(max_digits=12, decimal_places=2, null=True)
 
     def __str__(self):
         return self.name
 
 
 class PlayerTeam(models.Model):
-    player_id = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=False)
+    player_id = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=False, related_name="player_team")
     team_id = models.ForeignKey(Team, on_delete=models.CASCADE, null=True, blank=False)
 
     def __str__(self):
-        return self.player_id
+        return str(self.player_id)
 
 
 class Match(models.Model):
