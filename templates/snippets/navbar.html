@@ -1,0 +1,83 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-md navbar-light bg-light rounded">
+    <a class="navbar-brand ml-2" href="#">Fantasy Team Game</a>
+    
+    <form action="#" method="GET" class="form-inline order-md-last">
+        <div class="input-group input-group-sm">
+            <input class="form-control form-control-navbar" name="q" type="search" placeholder="Search " aria-label="Search ">
+            <div class="input-group-append">
+                <button class="btn btn-navbar" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <ul class="navbar-nav ml-auto mx-3 order-md-last d-none d-md-block">
+
+        <li class="nav-item dropdown">
+            
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="far fa-user" aria-hidden="true"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left" aria-labelledby="dropdown09" id="jazzy-usermenu">
+                <span class="dropdown-header">Account</span>
+                <div class="dropdown-divider"></div>
+                {% if request.user.is_authenticated %}
+                <a href="/admin/password_change/" class="dropdown-item">
+                    <i class="fas fa-key mr-2"></i> Change password
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="{% url 'authenticate:logout' %}" class="dropdown-item">
+                    <i class="fas fa-users mr-2"></i> Log out
+                </a>
+                {% else %}
+                <a href="/auth/login/" class="dropdown-item">
+                    <i class="fa-solid fa-right-to-bracket mr-2"></i> Log in
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="/auth/signup/" class="dropdown-item">
+                    <i class="fa-solid fa-user-plus  mr-2"></i> Signup
+                </a>
+                {% endif %}
+                
+                <div class="dropdown-divider"></div>
+                
+                <a href="/admin/authentication/customuser/1/change/" class="dropdown-item dropdown-footer">See Profile</a>
+                
+            </div>
+        </li>
+    </ul>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample09">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Fantasy</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Disabled</a>
+        </li>
+
+        {% if not request.user.is_authenticated %}
+        <li class="nav-item d-block d-md-none">
+            <a class="nav-link" href="/auth/login/">Log in</a>
+        </li>
+        <li class="nav-item d-block d-md-none">
+            <a class="nav-link" href="/auth/signup/">Sign up</a>
+        </li>
+        {% else %}
+        <li class="nav-item d-block d-md-none">
+            <a class="nav-link" href="#">Log out</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+</nav>

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% load static %}  
+
+{% block style %}
+<style>
+    .player__name-image {
+        width: 4.1rem;
+        margin: .5rem 1.5rem;
+    }
+    
+    img {
+        opacity: 1;
+        transition: opacity .35s ease-in-out,transform .2s;
+        position: relative;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<div class="content-wrapper" style="min-height: 1078.08px;">
+    {% include "snippets/low_nav.html" %}
+    <div class="content"style="width:100%; background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0,  0.5)), url('{% static 'img/lg.jpg' %}'); background-size:cover;">
+        <div class="container">
+            <section id="content" class="content text-light">   
+                
+                <div class="row featurette mb-2" style="margin-top: 80px;"> 
+                    <div class="col-md-7">
+                        <h2 class="featurette-heading h1 fw-bold">All Players</h2>
+                        
+                    </div>
+
+                    <div class="table-responsive mt-5 bg-light mb-4">
+                        <table class="table table-sm">
+                          <thead class="mb-4">
+                            <tr>
+                              <th class="me-3">Players</th>
+                              <th>Position</th>
+                              <th>Club</th>
+
+                            </tr>
+                          </thead>
+                          <tbody class="fs-6">
+                            {% for player in objects %}
+                            <tr class="border-bottom p-3 py-5 align-items-center align-self-center">
+                                <td>
+                                    <a href="#" class="player__name nav-link">
+                                        <img class="img player__name-image" data-player="{{player.player_id.code}}" data-size="40x40" src="https://resources.premierleague.com/premierleague/photos/players/40x40/p{{player.player_id.code}}.png" alt="Photo for {{player.player_id.name}}" onerror="setDefaultImage({{player.player_id.code}});">
+                                        {{player.player_id.name}}
+                                    </a> 
+                                </td>
+                                <td>{{player.player_id.position}}</td>
+                                <td>{{player.team_id}}</td>
+                            </tr>
+                            {% endfor %}
+                           
+                          </tbody>
+                        </table>
+
+                        
+                    </div>
+                    {% include "snippets/paginator.html" %}
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<script>
+    function setDefaultImage(id) {
+        let imgEl = document.querySelector(`[data-player="${id}"]`)
+        imgEl.src = 'https://resources.premierleague.com/premierleague/photos/players/40x40/Photo-Missing.png';
+        
+    }
+  </script>
+
+{% endblock content %}

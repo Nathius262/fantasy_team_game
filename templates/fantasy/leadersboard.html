@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% load static %}  
+
+{% block style %}
+<style>
+    .col-3, .col-md-5 {
+        --bs-bg-opacity: 1;
+        background-color: rgba(var(--bs-primary-rgb),var(--bs-bg-opacity))!important;
+        padding: 4px;
+        border-radius: 10px;
+        color:white !important;
+        text-align: center !important;
+    }
+
+    .t-body .col-3, .t-body .col-md-5{
+        color:rgba(var(--bs-primary-rgb),var(--bs-bg-opacity))!important;
+        background-color:white !important;
+        padding: 10px!important;
+        text-align: start!important;
+        margin-bottom: 10px!important;
+    }
+    .t-body .col-3{
+        text-align: center!important;
+    }
+    .t-body .icon{
+        background: none!important;
+        color: white!important;
+        text-align: center !important;
+        font-size: bold;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<div class="content-wrapper" style="min-height: 1078.08px;">
+    {% include "snippets/low_nav.html" %}
+    <div class="content"style="width:100%; background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0,  0.5)), url('{% static 'img/lg.jpg' %}'); background-size:cover;">
+        <div class="container">
+            <section id="content" class="content text-light">   
+                
+                <div class="row featurette mb-2" style="margin-top: 80px;"> 
+                    <div class="col-md-7">
+                        <h2 class="featurette-heading h1 fw-bold">Leaders board</h2>
+                        
+                    </div>
+
+                    <div class="table-responsive">
+                        <div class="table table-sm h3">
+                          <div class="row">
+                            <div class="col-3">Team</div>
+                            <div class="col-md-5 col-4 mx-md-3 mx-1">Players</div>
+                            <div class="col-3">points</div>
+                          </div>
+
+                          <div class="row mt-4 t-body h2 fw-bold align-items-center">
+                            {% for obj in objects %}
+                            <div class="col-3 icon" ><i class="fa-solid fa-futbol fa-1x"></i></div>
+                            <div class="col-md-5 col-4 mx-md-3 mx-1">{{obj.player_id.name}}</div>
+                            <div class="col-3">{{obj.player_id.point}}</div>
+                            {% endfor %}
+                          </div>
+                        </div>
+                    </div>
+
+                    {% include "snippets/paginator.html" %}
+                    
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+</div>
+
+{% endblock content %}
