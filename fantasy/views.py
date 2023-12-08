@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from .models import PlayerTeam, Team
 import random
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from operator import attrgetter
 
 # Create your views here.
 POSTS_PER_PAGE = 50
