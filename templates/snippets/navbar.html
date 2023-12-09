@@ -81,7 +81,7 @@
         </li>
         {% else %}
         <li class="nav-item d-block d-md-none">
-            <a class="nav-link" href="#">Log out</a>
+            <a class="nav-link" href="{%url 'authenticate:logout'%}">Log out</a>
         </li>
         {% endif %}
       </ul>
