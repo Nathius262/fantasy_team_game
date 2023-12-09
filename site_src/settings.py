@@ -150,6 +150,8 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
     ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
 }
 
 REST_AUTH_REGISTER_SERIALIZERS ={
@@ -198,10 +200,14 @@ CORS_ALLOW_METHODS = [
     "POST",
     "PUT",
 ]
+CORS_ALLOW_CREDENTIALS = True
+
 
 CORS_ALLOW_HEADERS = [
     "Content-Type",
     "Authorization",
+    'access-control-allow-headers',
+    'access-control-allow-origin',
 ]
 
 MEDIA_URL = '/media/'  # or any prefix you choose
