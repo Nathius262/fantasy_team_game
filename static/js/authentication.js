@@ -32,7 +32,6 @@ function authenticate(form, url) {
         if(form.checkValidity()){
             let form_data = new FormData(form)
             let json_form = Object.fromEntries(form_data)
-            console.log(json_form)
             option['body'] = JSON.stringify(json_form)
             errorMessage("")
             fetch(url, option)
@@ -57,6 +56,7 @@ function authenticate(form, url) {
                 }
                 
                 else{
+                   
                     window.location.href = '/'
                 }
             })

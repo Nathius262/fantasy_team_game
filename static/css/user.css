@@ -1,0 +1,37 @@
+.player__name-image {
+    width: 1.1rem;
+    
+}
+
+.dEnEMP .player__name-image{
+    width: 3.1rem;
+}
+
+img {
+    opacity: 1;
+    transition: opacity .35s ease-in-out,transform .2s;
+    position: relative;
+}
+
+.dEnEMP {
+    min-height: 330px;
+    border-radius: 6px;
+    background: url(../img/pitch.svg) center top / 625px 460px no-repeat;
+}
+
+.page-link.active, .active > .page-link {
+
+    background-color: var(--main-blue);
+    border-color: var(--main-blue);
+}
+.page-link {
+    color: var(--main-blue);
+    background-color: var(--bs-pagination-bg);
+    border: var(--bs-pagination-border-width) solid var(--main-blue);
+}
+.page-link:hover {
+    z-index: 2;
+    color: var(--bs-pagination-hover-color);
+    background-color: var(--grey);
+    border-color: var(--grey);
+}
