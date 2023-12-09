@@ -1,7 +1,12 @@
 from django.shortcuts import render, redirect
-from .models import PlayerTeam, Team
+from .models import PlayerTeam, Team, Player
 import random
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from rest_framework.viewsets import generics, mixins
+from rest_framework.permissions import IsAuthenticated
+from .serializers import PlayerTeamSerializer
+from rest_framework.pagination import PageNumberPagination
+
 
 # Create your views here.
 POSTS_PER_PAGE = 50
@@ -69,3 +74,22 @@ def club_list_view(request):
         "objects":random_objects
     }
     return render(request, "fantasy/club_list.html", context)
+
+
+class PlayerTeamListViewSet(generics.ListAPIView, mixins.RetrieveModelMixin):
+    serializer_class = PlayerTeamSerializer
+    #permission_classes = [IsAuthenticated]
+    pagination_class = PageNumberPagination 
+    queryset = PlayerTeam.objects.all()
+    slug = "position"
+    lookup_field = "position"
+    
+    def get_queryset(self):
+        #position = self.request.query_params.get('position', None)
+        position = self.kwargs.get('position', None)
+        if position:
+            return PlayerTeam.objects.all().filter(player_id__position=str(position).upper())
+        return PlayerTeam.objects.all()
+    
+    def get(self, request, position=None):
+        return self.list(request)
