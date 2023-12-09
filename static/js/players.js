@@ -68,17 +68,21 @@ async function renderModelList(url) {
             </li>
         `
     }
-    // Example: Fetch on pagination link click
-    paginationContainer.addEventListener('click', (event) => {
-        if (event.target.tagName === 'A') {
-            event.preventDefault();
-            renderModelList(event.target.href);
-        }
-    });
+    
 
     postPlayerData()
 
 }
+
+// Example: Fetch on pagination link click
+const paginationContainer = document.getElementById('pagination-ul');
+
+paginationContainer.addEventListener('click', (event) => {
+    if (event.target.tagName === 'A') {
+        event.preventDefault();
+        renderModelList(event.target.href);
+    }
+});
 
 
 

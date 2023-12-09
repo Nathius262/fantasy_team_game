@@ -88,8 +88,8 @@ class PlayerTeamListViewSet(generics.ListAPIView, mixins.RetrieveModelMixin):
         #position = self.request.query_params.get('position', None)
         position = self.kwargs.get('position', None)
         if position:
-            return PlayerTeam.objects.all().filter(player_id__position=str(position).upper())
-        return PlayerTeam.objects.all()
+            return sorted(PlayerTeam.objects.all().filter(player_id__position=str(position).upper()), key=lambda x: random.random())        
+        return sorted(PlayerTeam.objects.all(), key=lambda x: random.random())
     
     def get(self, request, position=None):
         return self.list(request)
