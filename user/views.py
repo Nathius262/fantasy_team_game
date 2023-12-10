@@ -16,12 +16,32 @@ from rest_framework import status
 # Create your views here.
 def squad_view(request):
     context = {}
+    
     try:        
         profile = Profile.objects.get(user=request.user)
         try:
+            gkp=[]
+            defd =[] 
+            mid = [] 
+            fwd = []
             squad = UserTeam.objects.get(user_id=profile.id)
-            print(squad.player.all())
+            for players in squad.player.all():
+                if players.position == "GKP":
+                    gkp.append(players)
+                elif players.position == "DEF":
+                    defd.append(players)
+                elif players.position == "MID":                    
+                    mid.append(players)
+                elif players.position == "FWD":         
+                    fwd.append(players)
+                else:
+                    pass
             context['objects'] = squad
+            context['gkp'] = gkp
+            context['def'] = defd
+            context['mid'] = mid
+            context['fwd'] = fwd
+
         except UserTeam.DoesNotExist:
             pass
     except Profile.DoesNotExist:
