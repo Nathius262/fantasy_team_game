@@ -5,8 +5,10 @@
 {% for player in mid %}                               
                                 
     <div class="col player__name nav-link d-grid justify-content-center align-items-center">
-        <img class="img player__name-image" data-player="{{player.code}}" width="10" src="https://resources.premierleague.com/premierleague/photos/players/40x40/p{{player.code}}.png" alt="Photo for{{player.name}}" onerror="setDefaultImage({{player.code}});">
-        <span class="mx-auto justify-self-center">{{player.name |truncatewords:2}}</span>
+        <img class="img player__name-image mx-auto" data-player="{{player.code}}" width="10" src="https://resources.premierleague.com/premierleague/photos/players/40x40/p{{player.code}}.png" alt="Photo for {{player.name}}" onerror="setDefaultImage({{player.code}});">
+        <span class="mx-auto justify-self-center text-center">{{player.name |truncatewords:2}}</span>
+        <span class="justify-items-center justify-self-center fw-bold fs-6 text-center">{{player.point}}</span>
+
     </div>
     {% if forloop.counter < 4 and player == "MID" %}
     {% with count_mid=4|sub:forloop.counter %}                                
