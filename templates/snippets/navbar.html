@@ -64,13 +64,7 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Fantasy</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
-        </li>
+        </li>       
 
         {% if not request.user.is_authenticated %}
         <li class="nav-item d-block d-md-none">
@@ -80,6 +74,9 @@
             <a class="nav-link" href="/auth/signup/">Sign up</a>
         </li>
         {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url "user:squad" %}">My Squad</a>
+          </li>
         <li class="nav-item d-block d-md-none">
             <a class="nav-link" href="{%url 'authenticate:logout'%}">Log out</a>
         </li>
