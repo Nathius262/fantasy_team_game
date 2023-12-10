@@ -1,0 +1,34 @@
+{% load custom_tags %}
+
+
+{% if def %}
+{% for player in def %}
+
+    <div class="col player__name nav-link d-grid justify-content-center align-items-center">
+        <img class="img player__name-image" data-player="{{player.code}}" width="10" src="https://resources.premierleague.com/premierleague/photos/players/40x40/p{{player.code}}.png" alt="Photo for {{player.name}}" onerror="setDefaultImage({{player.code}});">
+        <span class="mx-auto justify-self-center">{{player.name |truncatewords:2}}</span>
+    </div>
+    
+    {% if forloop.counter < 3 and forloop.last %}
+    {% with count_def=3|sub:forloop.counter %}                                
+    {% for i in "x"|rjust:count_def %}
+        <div class="col player__name nav-link d-grid justify-content-center align-items-center">
+            <img class="img player__name-image" data-player="" width="10" src="https://resources.premierleague.com/premierleague/photos/players/40x40/Photo-Missing.png" onerror="setDefaultImage(0);">
+            
+            <button data-player="def" class="btn btn-primary player p-1 mt-1" style="font-size: 10px;">add def</button>
+        </div>
+    {% endfor %}
+    {% endwith %}
+
+    {% endif %}
+    {% endfor %}
+
+{% else %}
+{% for i in "x"|rjust:"3" %}
+        <div class="col player__name nav-link d-grid justify-content-center align-items-center">
+            <img class="img player__name-image" data-player="" width="10" src="https://resources.premierleague.com/premierleague/photos/players/40x40/Photo-Missing.png" onerror="setDefaultImage(0);">
+            
+            <button data-player="def" class="btn btn-primary player p-1 mt-1" style="font-size: 10px;">add def</button>
+        </div>
+    {% endfor %}
+{% endif %}

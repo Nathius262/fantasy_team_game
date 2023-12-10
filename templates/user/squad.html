@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load static %}  
+{% load custom_tags %}
 
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/user.css' %}">
@@ -17,72 +18,13 @@
                     <div class="mt-5 row">
                         <div class="col-md-6 container">
                           <div data-testid="pitch" class=" dEnEMP" width="100">
-                            
-                            <div class="row">
-                                <div class="col player__name nav-link d-grid justify-content-center align-items-center">
-                                    <img class="img player__name-image" data-player="" width="10" src="https://resources.premierleague.com/premierleague/photos/players/40x40/Photo-Missing.png" onerror="setDefaultImage(0);">
-                                    <span class="mx-auto justify-self-center">Name</span>
-                                    <button data-player="gkp" class="btn btn-primary player p-1" style="font-size: 10px;">add gkp</button>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col player__name nav-link d-grid justify-content-center align-items-center">
-                                    <img class="img player__name-image" data-player="" width="10" src="https://resources.premierleague.com/premierleague/photos/players/40x40/Photo-Missing.png" onerror="setDefaultImage(0);">
-                                    <span class="mx-auto justify-self-center">Name</span>
-                                    <button data-player="def" class="btn btn-primary player p-1" style="font-size: 10px;">add def</button>
-                                </div>
-                                <div class="col player__name nav-link d-grid justify-content-center align-items-center">
-                                    <img class="img player__name-image" data-player="" width="10" src="https://resources.premierleague.com/premierleague/photos/players/40x40/Photo-Missing.png" onerror="setDefaultImage(0);">
-                                    <span class="mx-auto justify-self-center">Name</span>
-                                    <button data-player="def" class="btn btn-primary player p-1" style="font-size: 10px;">add def</button>
-                                </div>
-                                <div class="col player__name nav-link d-grid justify-content-center align-items-center">
-                                    <img class="img player__name-image" data-player="" width="10" src="https://resources.premierleague.com/premierleague/photos/players/40x40/Photo-Missing.png" onerror="setDefaultImage(0);">
-                                    <span class="mx-auto justify-self-center">Name</span>
-                                    <button data-player="def" class="btn btn-primary player p-1" style="font-size: 10px;">add def</button>
-                                </div>
-                                <div class="col player__name nav-link d-grid justify-content-center align-items-center">
-                                    <img class="img player__name-image" data-player="" width="10" src="https://resources.premierleague.com/premierleague/photos/players/40x40/Photo-Missing.png" onerror="setDefaultImage(0);">
-                                    <span class="mx-auto justify-self-center">Name</span>
-                                    <button data-player="def" class="btn btn-primary player p-1" style="font-size: 10px;">add def</button>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col player__name nav-link d-grid justify-content-center align-items-center">
-                                    <img class="img player__name-image" data-player="" width="10" src="https://resources.premierleague.com/premierleague/photos/players/40x40/Photo-Missing.png" onerror="setDefaultImage(0);">
-                                    <span class="mx-auto justify-self-center">Name</span>
-                                    <button data-player="mid" class="btn btn-primary player p-1" style="font-size: 10px;">add mid</button>
-                                </div>
-                                <div class="col player__name nav-link d-grid justify-content-center align-items-center">
-                                    <img class="img player__name-image" data-player="" width="10" src="https://resources.premierleague.com/premierleague/photos/players/40x40/Photo-Missing.png" onerror="setDefaultImage(0);">
-                                    <span class="mx-auto justify-self-center">Name</span>
-                                    <button data-player="mid" class="btn btn-primary player p-1" style="font-size: 10px;">add mid</button>
-                                </div>
-                                <div class="col player__name nav-link d-grid justify-content-center align-items-center">
-                                    <img class="img player__name-image" data-player="" width="10" src="https://resources.premierleague.com/premierleague/photos/players/40x40/Photo-Missing.png" onerror="setDefaultImage(0);">
-                                    <span class="mx-auto justify-self-center">Name</span>
-                                    <button data-player="mid" class="btn btn-primary player p-1" style="font-size: 10px;">add mid</button>
-                                </div>
+
+                                <div class="row">{% include "fantasy/snippets/gkp.html" %}</div>
+                                <div class="row">{% include "fantasy/snippets/def.html" %}</div>
+                                <div class="row">{% include "fantasy/snippets/mid.html" %}</div>
+                                <div class="row">{% include "fantasy/snippets/fwd.html" %}</div>
                                 
-                            </div>
-                            <div class="row">
-                                <div class="col player__name nav-link d-grid justify-content-center align-items-center">
-                                    <img class="img player__name-image" data-player="" width="10" src="https://resources.premierleague.com/premierleague/photos/players/40x40/Photo-Missing.png" onerror="setDefaultImage(0);">
-                                    <span class="mx-auto justify-self-center">Name</span>
-                                    <button data-player="fwd" class="btn btn-primary player p-1" style="font-size: 10px;">add fwd</button>
-                                </div>
-                                <div class="col player__name nav-link d-grid justify-content-center align-items-center">
-                                    <img class="img player__name-image" data-player="" width="10" src="https://resources.premierleague.com/premierleague/photos/players/40x40/Photo-Missing.png" onerror="setDefaultImage(0);">
-                                    <span class="mx-auto justify-self-center">Name</span>
-                                    <button data-player="fwd" class="btn btn-primary player p-1" style="font-size: 10px;">add fwd</button>
-                                </div>
-                                <div class="col player__name nav-link d-grid justify-content-center align-items-center">
-                                    <img class="img player__name-image" data-player="" width="10" src="https://resources.premierleague.com/premierleague/photos/players/40x40/Photo-Missing.png" onerror="setDefaultImage(0);">
-                                    <span class="mx-auto justify-self-center">Name</span>
-                                    <button data-player="fwd" class="btn btn-primary player p-1" style="font-size: 10px;">add fwd</button>
-                                </div>
-                            </div>
-                        </div>  
+                            </div>  
                         </div>
                         
                         
@@ -144,6 +86,12 @@
                 renderModelList(endpoint)
                 
             })
+        }
+
+        function setDefaultImage(id) {
+            let imgEl = document.querySelector(`[data-player="${id}"]`)
+            imgEl.src = 'https://resources.premierleague.com/premierleague/photos/players/40x40/Photo-Missing.png';
+            
         }
         
     })
