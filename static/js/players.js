@@ -169,6 +169,9 @@ async function postPlayerData(){
                 if (data.error_message){
                     errorMessage(data.error_message)
                 }
+                if(data.message){
+                    window.location.reload()
+                }
             })
             
         })
